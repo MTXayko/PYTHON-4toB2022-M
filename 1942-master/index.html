@@ -47,12 +47,7 @@
 <body>
 	<div id='container'>
 		<div id='hero'></div>
-		<div id='enemies'>
-			<div class='enemy1' style='top:100px; left:100px;'></div>
-			<div class='enemy1' style='top:100px; left:200px;'></div>
-			<div class='enemy1' style='top:100px; left:300px;'></div>
-			<div class='enemy1' style='top:100px; left:400px;'></div>
-		</div>
+		<div id='enemies'></div>
 		<div id='bullets'>
 			<div class='bullet' style='top:150px; left:200px;'></div>
 			<div class='bullet' style='top:250px; left:200px;'></div>
@@ -67,28 +62,51 @@
 <script>
 
 	var hero = {
-		x:700,
-		y:300
+		x:300,
+		y:400
 	}
 
-	var enemies =[{x: 50, y:50}, {x: 250, y:50}, {x: 450, y:50}];
-//QUEDE EN EL MINUTO 13:17
+	var enemies =[{x: 50, y:50}, {x: 250, y:50}, {x: 450, y:250}];
+
 	function displayHero(){
 		document.getElementById('hero').style['top'] = hero.y + "px";
 		document.getElementById('hero').style['left'] = hero.x + "px";
 	}
 
+	function displayEnemies(){
+		var output = '';
+		for(var i=0; i<enemies.length; i++){
+			output += "<div class='enemy1' style='top:"+enemies[i].y+"px; left:"+enemies[i].x+"px;'></div>";
+		}
+		document.getElementById('enemies').innerHTML = output;
+		//console.log(output);
+	}
+
+	function moveEnemies(){
+		for(var i=0; i<enemies.length; i++){
+			enemies[i].y += 5;
+
+		} 
+	}
+
+	function gameLoop(){
+		displayHero();
+		moveEnemies();
+		displayEnemies();
+	}
+
+	setInterval(gameLoop, 100);
+
 	document.onkeydown = function(a) {
 		if(a.keyCode == 37){
 			hero.x -= 10;
-		} else if(a.keyCode == 39){
+		} 
+		else if(a.keyCode == 39){
 			hero.x +=10;
 		}
 		displayHero();
 		//console-log(hero);
 	}
-
-	displayHero();
 </script>
 
 </body>
